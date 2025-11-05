@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+
+<head>
+    <meta charset="UTF-8">
+    <title>Directory</title>
+    <link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" />
+</head>
+
+<body>
+    <header class="d-flex justify-content-between align-items-center" style="padding: 20px;">
+        <h1>Contacts</h1>
+        <!-- <form th:action="@{/logout}" method="post">
+            <input type="submit" value="Sign Out" class="btn btn-sm btn-danger" />
+        </form> -->
+
+    </header>
+
+
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>FIRST NAME</th>
+                <th>LAST NAME</th>
+                <th>EMAIL</th>
+                <th>PHONE NUMBER</th>
+                <th>STREET ADDRESS</th>
+                <th>POSTAL CODE</th>
+                <th>CITY</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="contact : ${contacts}">
+                <td th:text="${contact.firstName}">Matti</td>
+                <td th:text="${contact.lastName}">Meikäläinen</td>
+                <td th:text="${contact.email}">matti.meikalainen@email.com</td>
+                <td th:text="${contact.phoneNumber}">04412345678</td>
+                <td th:text="${contact.streetAddress}">Esimerkkikatu 10</td>
+                <td th:text="${contact.postalCode}">01100</td>
+                <td th:text="${contact.city}">Helsinki</td>
+                <td>
+                    <a th:href="@{/editcontact/{id}(id=${contact.id})}" class="btn btn-primary">Edit
+
+                    </a>
+                </td>
+                <td>
+                    <a th:href="@{/delete/{id}(id=${contact.id})}" class="btn btn-danger"
+                        onclick="return confirm('Are you sure you want to delete this contact?');">
+                        Delete
+                    </a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <p>
+        <a th:href="@{/addcontact}" class="btn btn-success">Add contact</a>
+    </p>
+</body>
+
+</html>

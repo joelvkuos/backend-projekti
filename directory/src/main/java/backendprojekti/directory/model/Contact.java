@@ -10,7 +10,7 @@ public class Contact {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 
-    private long id;
+    private Long id;
     private String firstName;
     private String lastName;
     private String email;
@@ -22,11 +22,23 @@ public class Contact {
     public Contact() {
     }
 
-    public long getId() {
+    public Contact(Long id, String firstName, String lastName, String email, String phoneNumber, String streetAddress,
+            String postalCode, String city) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.streetAddress = streetAddress;
+        this.postalCode = postalCode;
+        this.city = city;
+    }
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
