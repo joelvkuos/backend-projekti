@@ -19,7 +19,7 @@ public class ContactController {
         this.contactRepository = contactRepository;
     }
 
-    @GetMapping({ "/", "directory" })
+    @GetMapping("/directory")
     public String directory(Model model) {
         model.addAttribute("contacts", contactRepository.findAll());
         return "directory";
