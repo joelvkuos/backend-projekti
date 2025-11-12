@@ -4,6 +4,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.JoinColumn;
 
 @Entity
 public class Contact {
@@ -18,6 +20,10 @@ public class Contact {
     private String streetAddress;
     private String postalCode;
     private String city;
+    
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private AppUser user;
 
     public Contact() {
     }
@@ -96,6 +102,14 @@ public class Contact {
 
     public void setCity(String city) {
         this.city = city;
+    }
+
+    public AppUser getUser() {
+        return user;
+    }
+
+    public void setUser(AppUser user) {
+        this.user = user;
     }
 
     @Override
