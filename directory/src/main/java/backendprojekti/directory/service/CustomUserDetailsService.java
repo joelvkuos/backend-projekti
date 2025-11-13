@@ -1,7 +1,5 @@
 package backendprojekti.directory.service;
 
-import java.util.ArrayList;
-
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -25,10 +23,12 @@ public class CustomUserDetailsService implements UserDetailsService {
         AppUser appUser = appUserRepository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("Käyttäjä " + username + " ei löydy"));
 
+        String role = appUser.getRole() != null ? appUser.getRole() : "USER";
+
         return User.builder()
                 .username(appUser.getUsername())
                 .password(appUser.getPassword())
-                .authorities(new ArrayList<>())
+                .roles(role) // ROLE_USER or ROLE_ADMIN
                 .build();
     }
 }

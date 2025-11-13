@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - Directory</title>
+    <link rel="stylesheet" th:href="@{/bootstrap.css}">
+    <style>
+        body {
+            padding-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row mb-4">
+            <div class="col">
+                <h1>Admin Panel</h1>
+                <p class="text-muted">Käyttäjien hallinta ja tilastot</p>
+            </div>
+            <div class="col text-end">
+                <span sec:authentication="name" class="me-3"></span>
+                <a href="/directory" class="btn btn-secondary me-2">Omat kontaktit</a>
+                <form th:action="@{/logout}" method="post" style="display: inline;">
+                    <button type="submit" class="btn btn-outline-danger">Logout</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Success message -->
+        <div th:if="${param.deleted}" class="alert alert-success alert-dismissible fade show" role="alert">
+            Käyttäjä poistettu onnistuneesti!
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+
+        <!-- Statistics -->
+        <div class="row mb-4">
+            <div class="col-md-6">
+                <div class="card text-white bg-primary">
+                    <div class="card-body">
+                        <h5 class="card-title">Käyttäjiä yhteensä</h5>
+                        <h2 th:text="${totalUsers}">0</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card text-white bg-success">
+                    <div class="card-body">
+                        <h5 class="card-title">Kontakteja yhteensä</h5>
+                        <h2 th:text="${totalContacts}">0</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Users list -->
+        <div class="card">
+            <div class="card-header">
+                <h3>Rekisteröityneet käyttäjät</h3>
+            </div>
+            <div class="card-body">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Käyttäjänimi</th>
+                            <th>Rooli</th>
+                            <th>Toiminnot</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="user : ${users}">
+                            <td th:text="${user.id}">1</td>
+                            <td th:text="${user.username}">username</td>
+                            <td>
+                                <span th:if="${user.role == 'ADMIN'}" class="badge bg-danger">ADMIN</span>
+                                <span th:if="${user.role == 'USER'}" class="badge bg-primary">USER</span>
+                            </td>
+                            <td>
+                                <a th:if="${user.role != 'ADMIN'}" th:href="@{/admin/delete/{id}(id=${user.id})}"
+                                    class="btn btn-sm btn-danger"
+                                    onclick="return confirm('Haluatko varmasti poistaa tämän käyttäjän ja kaikki hänen kontaktinsa?')">
+                                    Poista
+                                </a>
+                                <span th:if="${user.role == 'ADMIN'}" class="text-muted">
+                                    <i>Ei voi poistaa adminia</i>
+                                </span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

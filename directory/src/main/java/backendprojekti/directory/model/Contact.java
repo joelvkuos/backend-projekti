@@ -6,6 +6,9 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.JoinColumn;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Pattern;
 
 @Entity
 public class Contact {
@@ -13,14 +16,31 @@ public class Contact {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 
     private Long id;
+
+    @NotEmpty(message = "First name cannot be empty")
     private String firstName;
+
+    @NotEmpty(message = "Last name cannot be empty")
     private String lastName;
+
+    @NotEmpty(message = "Email cannot be empty")
+    @Email(message = "Email should be valid")
     private String email;
+
+    @NotEmpty(message = "Phone number cannot be empty")
+    @Pattern(regexp = "^[0-9+\\-\\s()]+$", message = "Invalid phone number format")
     private String phoneNumber;
+
+    @NotEmpty(message = "Street address cannot be empty")
     private String streetAddress;
+
+    @NotEmpty(message = "Postal code cannot be empty")
+    @Pattern(regexp = "^[0-9]{5}$", message = "Postal code must be 5 digits")
     private String postalCode;
+
+    @NotEmpty(message = "City cannot be empty")
     private String city;
-    
+
     @ManyToOne
     @JoinColumn(name = "user_id")
     private AppUser user;

@@ -16,13 +16,21 @@ public class DataLoader {
     CommandLineRunner init(ContactRepository repo, AppUserRepository userRepo, PasswordEncoder encoder) {
         return args -> {
             AppUser testUser = null;
-            
+            AppUser adminUser = null;
+
             if (userRepo.count() == 0) {
-                testUser = new AppUser(null, "user", encoder.encode("password"));
+                // Create regular user
+                testUser = new AppUser(null, "user", encoder.encode("password"), "USER");
                 userRepo.save(testUser);
                 System.out.println("Testikäyttäjä 'user' luotu!");
+
+                // Create admin user
+                adminUser = new AppUser(null, "admin", encoder.encode("admin"), "ADMIN");
+                userRepo.save(adminUser);
+                System.out.println("Admin-käyttäjä 'admin' luotu!");
             } else {
                 testUser = userRepo.findByUsername("user").orElse(null);
+                adminUser = userRepo.findByUsername("admin").orElse(null);
             }
 
             if (repo.count() == 0 && testUser != null) {

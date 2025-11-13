@@ -17,6 +17,8 @@ public class AppUser {
     private String username;
     @Column(length = 255)
     private String password;
+    @Column(length = 20)
+    private String role; // "USER" or "ADMIN"
 
     public AppUser() {
     }
@@ -25,6 +27,14 @@ public class AppUser {
         this.id = id;
         this.username = username;
         this.password = password;
+        this.role = "USER"; // Default role
+    }
+
+    public AppUser(Long id, String username, String password, String role) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.role = role;
     }
 
     public Long getId() {
@@ -51,9 +61,17 @@ public class AppUser {
         this.password = password;
     }
 
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
     @Override
     public String toString() {
-        return "AppUser [id=" + id + ", username=" + username + ", password=" + password + "]";
+        return "AppUser [id=" + id + ", username=" + username + ", password=" + password + ", role=" + role + "]";
     }
 
 }
