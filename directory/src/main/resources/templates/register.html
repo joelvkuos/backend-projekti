@@ -6,37 +6,52 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register</title>
+    <link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" />
 </head>
 
 <body>
-    <h1>Register</h1>
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card shadow">
+                    <div class="card-header bg-success text-white">
+                        <h2 class="mb-0">Create Account</h2>
+                    </div>
+                    <div class="card-body p-4">
+                        <div th:if="${error}" class="alert alert-danger" role="alert">
+                            <p th:text="${error}" class="mb-0"></p>
+                        </div>
 
-    <div th:if="${error}">
-        <p th:text="${error}" style="color: red;"></p>
-    </div>
+                        <div th:if="${success}" class="alert alert-success" role="alert">
+                            <p th:text="${success}" class="mb-2"></p>
+                            <a th:href="@{/login}" class="btn btn-sm btn-success">Login here</a>
+                        </div>
 
-    <div th:if="${success}">
-        <p th:text="${success}" style="color: green;"></p>
-        <p><a th:href="@{/login}">Login here</a></p>
-    </div>
+                        <form th:action="@{/register}" method="post">
+                            <div class="mb-3">
+                                <label for="username" class="form-label">Username:</label>
+                                <input type="text" id="username" name="username" class="form-control" required>
+                            </div>
 
-    <form th:action="@{/register}" method="post">
-        <div>
-            <label for="username">Username:</label>
-            <input type="text" id="username" name="username" required>
+                            <div class="mb-3">
+                                <label for="password" class="form-label">Password:</label>
+                                <input type="password" id="password" name="password" class="form-control" required>
+                            </div>
+
+                            <button type="submit" class="btn btn-success w-100">Register</button>
+                        </form>
+
+                        <hr class="my-4">
+
+                        <p class="text-center mb-0">
+                            Already have an account?
+                            <a th:href="@{/login}" class="link-success text-decoration-none fw-bold">Log in here</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
         </div>
-
-        <div>
-            <label for="password">Password:</label>
-            <input type="password" id="password" name="password" required>
-        </div>
-
-        <button type="submit">Register</button>
-    </form>
-
-    <p>
-        Already have an account? <a th:href="@{/login}">Log in here</a>
-    </p>
+    </div>
 </body>
 
 </html>

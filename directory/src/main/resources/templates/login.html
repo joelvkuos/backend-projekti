@@ -5,32 +5,49 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Log in</title>
+    <link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" />
 </head>
 
 <body>
-    <h1>Directory</h1>
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card shadow">
+                    <div class="card-header bg-primary text-white">
+                        <h2 class="mb-0">Directory Login</h2>
+                    </div>
+                    <div class="card-body p-4">
+                        <div th:if="${param.error}" class="alert alert-danger" role="alert">
+                            Wrong username or password!
+                        </div>
 
-    <div th:if="${param.error}">
-        Wrong username or password!
+                        <form th:action="@{/login}" method="post">
+                            <div class="mb-3">
+                                <label for="username" class="form-label">Username</label>
+                                <input type="text" id="username" name="username" class="form-control" required
+                                    autofocus>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="password" class="form-label">Password</label>
+                                <input type="password" id="password" name="password" class="form-control" required>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary w-100">Log in</button>
+                        </form>
+
+                        <hr class="my-4">
+
+                        <p class="text-center mb-0">
+                            Don't have an account?
+                            <a th:href="@{/register}" class="link-primary text-decoration-none fw-bold">Register
+                                here</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-
-    <form th:action="@{/login}" method="post">
-        <div>
-            <label for="username">Username</label>
-            <input type="text" id="username" name="username" required autofocus>
-        </div>
-
-        <div>
-            <label for="password">Password</label>
-            <input type="password" id="password" name="password" required>
-        </div>
-
-        <button type="submit">Log in</button>
-    </form>
-
-    <p>
-        Don't have an account? <a th:href="@{/register}">Register here</a>
-    </p>
 </body>
 
 </html>

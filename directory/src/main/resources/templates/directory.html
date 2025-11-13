@@ -4,64 +4,72 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Directory</title>
     <link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" />
 </head>
 
 <body>
-    <header class="d-flex justify-content-between align-items-center" style="padding: 20px;">
-        <h1>Contacts</h1>
-        <div>
-            <a sec:authorize="hasRole('ADMIN')" href="/admin" class="btn btn-sm btn-primary me-2">Admin Panel</a>
-            <form th:action="@{/logout}" method="post" style="display: inline;">
-                <input type="submit" value="Sign Out" class="btn btn-sm btn-danger" />
-            </form>
+    <div class="container mt-4">
+        <header class="d-flex justify-content-between align-items-center mb-4 pb-3 border-bottom">
+            <h1 class="text-primary">Contacts</h1>
+            <div>
+                <a sec:authorize="hasRole('ADMIN')" href="/admin" class="btn btn-sm btn-primary me-2 shadow-sm">
+                    <i class="bi bi-shield-lock"></i> Admin Panel
+                </a>
+                <form th:action="@{/logout}" method="post" style="display: inline;">
+                    <input type="submit" value="Sign Out" class="btn btn-sm btn-outline-danger shadow-sm" />
+                </form>
+            </div>
+        </header>
+
+        <div class="table-responsive">
+            <table class="table table-striped table-hover shadow-sm">
+                <thead>
+                    <tr>
+                        <th>FIRST NAME</th>
+                        <th>LAST NAME</th>
+                        <th>EMAIL</th>
+                        <th>PHONE NUMBER</th>
+                        <th>STREET ADDRESS</th>
+                        <th>POSTAL CODE</th>
+                        <th>CITY</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="contact : ${contacts}">
+                        <td th:text="${contact.firstName}">Matti</td>
+                        <td th:text="${contact.lastName}">Meikäläinen</td>
+                        <td th:text="${contact.email}">matti.meikalainen@email.com</td>
+                        <td th:text="${contact.phoneNumber}">04412345678</td>
+                        <td th:text="${contact.streetAddress}">Esimerkkikatu 10</td>
+                        <td th:text="${contact.postalCode}">01100</td>
+                        <td th:text="${contact.city}">Helsinki</td>
+                        <td>
+                            <a th:href="@{/editcontact/{id}(id=${contact.id})}"
+                                class="btn btn-sm btn-primary text-decoration-none">
+                                Edit
+                            </a>
+                        </td>
+                        <td>
+                            <a th:href="@{/delete/{id}(id=${contact.id})}"
+                                class="btn btn-sm btn-danger text-decoration-none"
+                                onclick="return confirm('Are you sure you want to delete this contact?');">
+                                Delete
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
 
-    </header>
-
-
-
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th>FIRST NAME</th>
-                <th>LAST NAME</th>
-                <th>EMAIL</th>
-                <th>PHONE NUMBER</th>
-                <th>STREET ADDRESS</th>
-                <th>POSTAL CODE</th>
-                <th>CITY</th>
-
-            </tr>
-        </thead>
-        <tbody>
-            <tr th:each="contact : ${contacts}">
-                <td th:text="${contact.firstName}">Matti</td>
-                <td th:text="${contact.lastName}">Meikäläinen</td>
-                <td th:text="${contact.email}">matti.meikalainen@email.com</td>
-                <td th:text="${contact.phoneNumber}">04412345678</td>
-                <td th:text="${contact.streetAddress}">Esimerkkikatu 10</td>
-                <td th:text="${contact.postalCode}">01100</td>
-                <td th:text="${contact.city}">Helsinki</td>
-                <td>
-                    <a th:href="@{/editcontact/{id}(id=${contact.id})}" class="btn btn-primary">Edit
-
-                    </a>
-                </td>
-                <td>
-                    <a th:href="@{/delete/{id}(id=${contact.id})}" class="btn btn-danger"
-                        onclick="return confirm('Are you sure you want to delete this contact?');">
-                        Delete
-                    </a>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-
-    <p>
-        <a th:href="@{/addcontact}" class="btn btn-success">Add contact</a>
-    </p>
+        <div class="mt-3">
+            <a th:href="@{/addcontact}" class="btn btn-success shadow-sm">
+                + Add Contact
+            </a>
+        </div>
+    </div>
 </body>
 
 </html>
