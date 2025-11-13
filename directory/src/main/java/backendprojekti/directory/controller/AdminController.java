@@ -43,10 +43,7 @@ public class AdminController {
         AppUser user = userRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
-        // Delete all contacts of this user first
         contactRepository.deleteAll(contactRepository.findByUser(user));
-
-        // Then delete the user
         userRepository.deleteById(id);
 
         return "redirect:/admin?deleted=true";

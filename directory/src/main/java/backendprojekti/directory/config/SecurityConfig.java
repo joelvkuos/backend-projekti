@@ -43,11 +43,11 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authz -> authz
                         .requestMatchers("/login", "/register").permitAll()
                         .requestMatchers("/admin/**").hasRole("ADMIN")
-                        .requestMatchers("/api/**").authenticated() // REST API requires authentication
+                        .requestMatchers("/api/**").authenticated()
                         .anyRequest().authenticated())
                 .authenticationProvider(authenticationProvider())
                 .httpBasic(basic -> {
-                }) // Enable HTTP Basic Auth for REST API
+                })
                 .formLogin(form -> form
                         .loginPage("/login")
                         .loginProcessingUrl("/login")
@@ -58,7 +58,7 @@ public class SecurityConfig {
                         .logoutSuccessUrl("/login")
                         .permitAll())
                 .csrf(csrf -> csrf
-                        .ignoringRequestMatchers("/api/**")); // Disable CSRF for REST API
+                        .ignoringRequestMatchers("/api/**"));
 
         return http.build();
     }

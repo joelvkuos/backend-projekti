@@ -19,12 +19,10 @@ public class DataLoader {
             AppUser adminUser = null;
 
             if (userRepo.count() == 0) {
-                // Create regular user
                 testUser = new AppUser(null, "user", encoder.encode("password"), "USER");
                 userRepo.save(testUser);
                 System.out.println("Testikäyttäjä 'user' luotu!");
 
-                // Create admin user
                 adminUser = new AppUser(null, "admin", encoder.encode("admin"), "ADMIN");
                 userRepo.save(adminUser);
                 System.out.println("Admin-käyttäjä 'admin' luotu!");

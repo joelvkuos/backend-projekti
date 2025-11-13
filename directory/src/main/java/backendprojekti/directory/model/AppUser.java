@@ -18,7 +18,7 @@ public class AppUser {
     @Column(length = 255)
     private String password;
     @Column(length = 20)
-    private String role; // "USER" or "ADMIN"
+    private String role;
 
     public AppUser() {
     }
@@ -27,7 +27,7 @@ public class AppUser {
         this.id = id;
         this.username = username;
         this.password = password;
-        this.role = "USER"; // Default role
+        this.role = "USER";
     }
 
     public AppUser(Long id, String username, String password, String role) {

@@ -42,7 +42,7 @@ public class RegisterController {
         }
 
         appUser.setPassword(passwordEncoder.encode(appUser.getPassword()));
-        appUser.setRole("USER"); // Set default role
+        appUser.setRole("USER");
 
         userRepository.save(appUser);
 

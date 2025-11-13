@@ -49,7 +49,6 @@ public class ContactRestController {
         Contact contact = contactRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Contact not found"));
 
-        // Check if contact belongs to current user
         if (!contact.getUser().getId().equals(currentUser.getId())) {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Access denied");
         }
@@ -79,7 +78,6 @@ public class ContactRestController {
         Contact existing = contactRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Contact not found"));
 
-        // Check if contact belongs to current user
         if (!existing.getUser().getId().equals(currentUser.getId())) {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Access denied");
         }
@@ -103,7 +101,6 @@ public class ContactRestController {
         Contact contact = contactRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Contact not found"));
 
-        // Check if contact belongs to current user
         if (!contact.getUser().getId().equals(currentUser.getId())) {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Access denied");
         }

@@ -65,7 +65,6 @@ public class ContactController {
         Contact contact = contactRepository.findById(ContactId)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid id: " + ContactId));
 
-        // Varmista että kontakti kuuluu kirjautuneelle käyttäjälle
         if (!contact.getUser().getId().equals(currentUser.getId())) {
             throw new IllegalArgumentException("Unauthorized access");
         }
@@ -102,7 +101,6 @@ public class ContactController {
         Contact contact = contactRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid id: " + id));
 
-        // Varmista että kontakti kuuluu kirjautuneelle käyttäjälle
         if (!contact.getUser().getId().equals(currentUser.getId())) {
             throw new IllegalArgumentException("Unauthorized access");
         }
